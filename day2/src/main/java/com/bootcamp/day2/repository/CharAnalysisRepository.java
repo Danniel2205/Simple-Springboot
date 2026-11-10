@@ -16,4 +16,6 @@ public interface CharAnalysisRepository extends JpaRepository<CharAnalysis, Long
     @Query(value = "SELECT * FROM mst_char_analysis ORDER BY created_at DESC LIMIT 5",   //karna native querry jadi direct ke table
             nativeQuery = true)
     List<CharAnalysis> findTerbaru();
+
+    boolean existsByKalimatIgnoreCase(String kalimat);
 }

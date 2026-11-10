@@ -23,4 +23,6 @@ public class CharAnalysis {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @Column(name = "author", length = 500)
+    private String author;
 }

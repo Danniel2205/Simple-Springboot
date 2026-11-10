@@ -10,4 +10,5 @@ public interface CharAnalysisService {
     CharAnalysisResponse cariById(Long id);
     List<CharAnalysisResponse> cariMinimal(int min);
     List<CharAnalysisResponse> cariTerbaru();
+    CharAnalysisResponse analisisDariQuote();
 }
