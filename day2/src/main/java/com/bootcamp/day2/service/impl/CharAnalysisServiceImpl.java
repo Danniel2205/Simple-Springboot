@@ -50,11 +50,24 @@ public class CharAnalysisServiceImpl implements CharAnalysisService {
         if (charAnalysisRepository.existsByKalimatIgnoreCase(kalimat)){
             throw new AnalysisAlreadyExistsException(kalimat);
         }
-        return simpanFein(kalimat, null);
+        return simpan(kalimat, null);
     }
 
     public CharAnalysisResponse cariById() {
         return cariById(null);
+    }
+
+    @Override
+    public CharAnalysisResponse simpan(String kalimat, String author) {
+        CharCounter counter = new CharCounter(kalimat);
+        CharAnalysis data = new CharAnalysis();
+        data.setKalimat(kalimat);
+        data.setAuthor(author);
+        data.setTotalHuruf(counter.getTotalHuruf());
+        data.setCreatedAt(LocalDateTime.now());
+
+        charAnalysisRepository.save(data);
+        return CharAnalysisResponse.from(data, counter.toMap());
     }
 
     @Override
@@ -90,7 +103,7 @@ public class CharAnalysisServiceImpl implements CharAnalysisService {
         } catch (FeignException feignException){
             throw new QuoteUnavailableException("Service Unavailable");
         }
-        return simpanFein(quote.getQuote(),quote.getAuthor());
+        return simpan(quote.getQuote(),quote.getAuthor());
     }
 
     private CharAnalysisResponse simpanFein (String kalimat, String author) {
@@ -110,6 +123,22 @@ public class CharAnalysisServiceImpl implements CharAnalysisService {
         List<CharAnalysisResponse> hasil = new ArrayList<>();
         for (CharAnalysis data : semua) {
             hasil.add(toResponse(data));
+        }
+        return hasil;
+    }
+
+    @Override
+    public List<CharAnalysisResponse> analisisDariQuote(int length) {
+        List<QuoteResponse> quotes;
+        try {
+                quotes = client.getQuotes(length);
+        } catch (FeignException feignException) {
+            throw new QuoteUnavailableException("Service Unavailable");
+        }
+
+        List<CharAnalysisResponse> hasil = new ArrayList<>();
+        for (QuoteResponse quote : quotes) {
+            hasil.add(simpan(quote.getQuote(), quote.getAuthor()));
         }
         return hasil;
     }

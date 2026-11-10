@@ -2,6 +2,8 @@ package com.bootcamp.day2.service;
 
 import com.bootcamp.day2.dto.request.CharAnalysisRequest;
 import com.bootcamp.day2.dto.response.CharAnalysisResponse;
+import com.bootcamp.day2.entity.CharAnalysis;
+
 import java.util.List;
 
 public interface CharAnalysisService {
@@ -11,4 +13,6 @@ public interface CharAnalysisService {
     List<CharAnalysisResponse> cariMinimal(int min);
     List<CharAnalysisResponse> cariTerbaru();
     CharAnalysisResponse analisisDariQuote();
+    CharAnalysisResponse simpan(String kalimat, String author);
+    List<CharAnalysisResponse> analisisDariQuote(int length);
 }

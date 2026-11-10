@@ -54,4 +54,9 @@ public class AnalyzerController {
     public BaseResponse<CharAnalysisResponse> fromQuote() {
         return BaseResponse.ok(charAnalysisService.analisisDariQuote());
     }
+
+    @PostMapping("/from-quote/{length}")
+    public BaseResponse<List<CharAnalysisResponse>> fromQuoteBatch(@PathVariable int length) {
+        return BaseResponse.ok(charAnalysisService.analisisDariQuote(length));
+    }
 }

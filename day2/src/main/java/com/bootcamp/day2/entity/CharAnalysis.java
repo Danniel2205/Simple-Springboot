@@ -14,7 +14,7 @@ public class CharAnalysis {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false, length = 500)
     private String kalimat;
 
     @Column(name = "total_huruf")
@@ -23,6 +23,6 @@ public class CharAnalysis {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @Column(name = "author", length = 500)
+    @Column(name = "author", length = 100)
     private String author;
 }

@@ -14,4 +14,4 @@ spring:
 
 quote:
   api:
-    url: https://dummyjson.com/
+    url: https://dummyjson.com
